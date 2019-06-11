@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/user/css/register.css}">
+    <script type="text/javascript" th:src="@{/user/js/jquery.min.js}"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <article>
+            <h1><em>Logo</em><span>APP应用商店后台</span></h1>
+            <div class="main">
+                <form th:action="@{/dev/user/register}" th:method="post">
+                    <p th:style="'color:red;'" th:text="${#request.getParameter('registerInfo')}"></p>
+                    <div class="userName">
+                        <label for="devName">用户名:</label>
+                        <input type="text" id="devName" required name="devUsername" placeholder="输入用户名"><!--<em>由5-8个字符组成！</em>-->
+                    </div>
+                    <div class="password">
+                        <label for="devPassword">密码:</label>
+                        <input type="password" id="devPassword" required name="devPassword" placeholder="输入密码" onkeyup="keyUp()"><!--<em>使用字母、数字、符号两种及以上的组合，8-12个字符</em>-->
+                    </div>
+                    <div class="password">
+                        <label for="againPwd">确定密码:</label>
+                        <input type="password" id="againPwd" required placeholder="确认密码" onkeyup="keyUp()"><!--<em>使用字母、数字、符号两种及以上的组合，8-12个字符</em>-->
+                    </div>
+                    <span style="color:red;" id="pwdInfo"></span>
+                    <div class="devEmail">
+                        <label for="devEmail">邮箱:</label>
+                        <input type="email" id="devEmail" required name="devEmail" placeholder="输入邮箱"><!--<em>两次密码不一致</em>-->
+                    </div>
+                    <div>
+                        <label for="devBirthday">出生年月:</label>
+                        <input type="date" id="devBirthday" required name="devBirthday" placeholder="输入出生年月">
+                    </div>
+                    <button id="btnSubmit" >注册</button>
+                    <p class="login"><span>已有账号?</span><a th:href="@{/dev/user/login}">立即登录</a></p>
+                </form>
+            </div>
+        </article>
+        <!--<footer>-->
+            <!--<ul>-->
+                <!--<li><a href="#">联系我们</a></li>-->
+                <!--<li><a href="#">关于我们</a></li>-->
+                <!--<li><a href="#">人才招聘</a></li>-->
+                <!--<li><a href="#">友情链接</a></li>-->
+                <!--<li><a href="#">公司地址</a></li>-->
+                <!--<li><a href="#">关注我们</a></li>-->
+            <!--</ul>-->
+            <!--<p>本网站版权归我的技术有限公司所有，未经许可，不得转载。</p>-->
+        <!--</footer>-->
+    </div>
+<script>
+    // 校验两次密码
+    function keyUp() {
+        var a = $('#devPassword').val();
+        var b = $('#againPwd').val();
+        if (a == b) {
+            $('#btnSubmit').removeAttr('disabled');
+            $("#pwdInfo").html("");
+        }else {
+            $('#btnSubmit').attr('disabled', 'disabled');
+            $("#pwdInfo").html("两次密码不一致!");
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆页面</title>
+    <link rel="stylesheet" type="text/css" href="/user/css/login.css">
+    <script type="text/javascript" src="/user/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".name input").focus(function(){
+                $(this).prev("i").css({"background-image":"url(/user/img/user2.png)"});
+            });
+            $(".name input").blur(function(){
+                $(this).prev("i").css({"background-image":"url(/user/img/user1.png)"});
+            });
+            $(".password input").focus(function(){
+                $(this).prev("i").css({"background-image":"url(/user/img/password2.png)"});
+            });
+            $(".password input").blur(function(){
+                $(this).prev("i").css({"background-image":"url(/user/img/password1.png)"});
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="wrap">
+            <header><em>Logo</em><span>APP应用商店后台</span></header>
+            <article>
+                <section>
+                    <aside>
+                        <em>
+                            <img src="/user/img/user.png">
+                        </em>
+                         <form th:action="@{/dev/user/login}" th:method="post">
+                            <p th:style="'color:red;'" th:text="${#request.getParameter('loginInfo')}"></p>
+                            <p class="name"><i></i><input type="text" required name="devUsername" class="userName" placeholder="请输入用户名"></p>
+                            <p class="password"><i></i><input type="password" required name="devPassword" class="pwd" placeholder="请输入密码"></p>
+                            <button type="submit">登录</button>
+                            <p class="register"><span>没有账号?</span><a th:href="@{/dev/user/register}">立即注册</a></p>
+                            <div class="clear"></div>
+                        </form>
+                    </aside>
+                   
+                </section>               
+            </article>
+            <footer>
+                <ul>
+                    <li><a href="#">联系我们</a></li>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">人才招聘</a></li>
+                    <li><a href="#">友情链接</a></li>
+                    <li><a href="#">公司地址</a></li>
+                    <li><a href="#">关注我们</a></li>
+                </ul>
+                <p>本网站版权归我的技术有限公司所有，未经许可，不得转载。</p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+#1. 项目端口号和项目路径.
+server:
+  port: 80
+  servlet:
+    context-path: /
+
+
+
+#2. datasource数据源.
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///app?characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+  # 邮件的配置
+  mail:
+    host: smtp.126.com
+    username: zjw_2301211@126.com
+    password: z123123
+
+
+#3. 整合mybatis.
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.qf.app.bean
+  mapper-locations: mapper/*.xml
+
+
+#4. 整合分页助手
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+#5. 激活账号的url地址
+app:
+  activeUrl: http://localhost/dev/user/active
+
