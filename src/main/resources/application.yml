@@ -19,6 +19,10 @@ spring:
     host: smtp.126.com
     username: zjw_2301211@126.com
     password: z123123
+  # redis配置
+  redis:
+    host: localhost
+    port: 6379
 
 
 #3. 整合mybatis.

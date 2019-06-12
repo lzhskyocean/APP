@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>开发者平台各个区域.</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+</head>
+<body>
+
+    <!-- 头部 -->
+    <div th:fragment="header" class="layui-header">
+    <div class="layui-logo">开发者平台首页</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+        <li class="layui-nav-item"><a href="">功能待定</a></li>
+        <li class="layui-nav-item"><a href="">功能待定</a></li>
+        <li class="layui-nav-item"><a href="">功能待定</a></li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">功能待定</a>
+            <dl class="layui-nav-child">
+                <dd><a href="">功能待定</a></dd>
+                <dd><a href="">功能待定</a></dd>
+                <dd><a href="">功能待定</a></dd>
+            </dl>
+        </li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+        <li class="layui-nav-item">
+            <a href="javascript:;">
+                <img th:src="@{/layui/user.png}" class="layui-nav-img">
+                王大拿
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="">基本资料</a></dd>
+                <dd><a href="">安全设置</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">退了</a></li>
+    </ul>
+</div>
+
+
+    <!--左侧导航-->
+    <div th:fragment="left" class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">功能待定</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">功能待定</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">APP应用管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="@{/dev/app/appMaintain}">APP维护</a></dd>
+                        <dd><a href="javascript:;">功能待定</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">功能待定</a></li>
+                <li class="layui-nav-item"><a href="">功能待定</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!--底部固定-->
+    <div th:fragment="footer" class="layui-footer">
+        <!-- 底部固定区域 -->
+        © www.app.com - 相关备案....
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>开发者平台首页</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+
+    <!--引入头部-->
+    <div th:replace="~{/dev/app/common :: header}"></div>
+    <!--引入左侧-->
+    <div th:replace="~{/dev/app/common :: left}"></div>
+
+
+    <div class="layui-body">
+        <h1>下载量TOP FIVE:</h1>
+        <!-- 内容主体区域 -->
+        <div id="echarts" style="width: 100%;height: 100%;"></div>
+    </div>
+
+
+    <!--引入底部-->
+    <div th:replace="~{/dev/app/common :: footer}"></div>
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/layui/echarts.min.js}"></script>
+<script>
+
+    // 初始化layui组件
+    layui.use(['element'], function(){
+        var element = layui.element;
+        // 初始化jQuery关键字
+        var $ = layui.$;
+
+
+        // 发送ajax请求,获得下载量的top five.
+        $.getJSON(
+            "/dev/app/downloads",
+            null,
+            function(result){
+                //0. 声明软件名称数组和下载量数组
+                var softwareNames = [];
+                var downloads = [];
+                //1. 遍历数组.
+                for(var i = 0;i < result.length;i++){
+                    // 将json对象的值赋值给数组
+                    softwareNames.push(result[i].softwareName);
+                    downloads.push(result[i].downloads);
+                }
+                //2. 初始化option
+                // 柱状图.
+                option = {
+                    color: ['#3398DB'],
+                    tooltip : {
+                        trigger: 'axis',
+                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            data : softwareNames,
+                            axisTick: {
+                                alignWithLabel: true
+                            }
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'直接访问',
+                            type:'bar',
+                            barWidth: '60%',
+                            data: downloads
+                        }
+                    ]
+                };
+                //3. 设置echarts的API
+                var obj = echarts.init(document.getElementById("echarts"));
+                obj.setOption(option);
+            }
+        );
+
+
+
+
+
+
+
+
+
+
+    });
+
+</script>
+</body>
+</html>
