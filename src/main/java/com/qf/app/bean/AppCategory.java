@@ -3,11 +3,25 @@ package com.qf.app.bean;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Data
 @Entity
 @Table
 public class AppCategory {
+
+	public static void main(String[] args) {
+		Set<String> set = new HashSet<>();
+		set.add(null);
+
+
+		Map<String,String> map = new HashMap<>();
+		map.put(null,"123123");
+	}
+
 
 	@Id
 	/**

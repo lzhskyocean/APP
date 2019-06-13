@@ -1,7 +1,10 @@
 package com.qf.app.service;
 
 import com.qf.app.AppApplicationTests;
+import com.qf.app.form.AppInfoMaintainForm;
+import com.qf.app.view.AppMaintain;
 import com.qf.app.vo.AppDownloadsVO;
+import com.qf.app.vo.LayUITableVO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,4 +28,28 @@ public class AppInfoServiceTest extends AppApplicationTests {
 //            System.err.println(appDownloadsVO);
 //        }
     }
+
+    @Test
+    public void findByCondition(){
+        AppInfoMaintainForm form = new AppInfoMaintainForm();
+        form.setPage(1);
+        form.setLimit(10);
+        LayUITableVO<AppMaintain> vo = appInfoService.findByCondition(form);
+
+        System.err.println(vo);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

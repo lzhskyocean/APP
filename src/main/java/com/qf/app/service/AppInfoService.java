@@ -1,6 +1,9 @@
 package com.qf.app.service;
 
+import com.qf.app.form.AppInfoMaintainForm;
+import com.qf.app.view.AppMaintain;
 import com.qf.app.vo.AppDownloadsVO;
+import com.qf.app.vo.LayUITableVO;
 
 import java.util.List;
 
@@ -14,4 +17,11 @@ public interface AppInfoService {
      * @return
      */
     String findDownloadsTopFive();
+
+    /**
+     * app维护页面需要的表格数据
+     * @param appInfoMaintainForm
+     * @return
+     */
+    LayUITableVO<AppMaintain> findByCondition(AppInfoMaintainForm appInfoMaintainForm);
 }

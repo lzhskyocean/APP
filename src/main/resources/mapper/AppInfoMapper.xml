@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.app.mapper.AppInfoMapper">
+
+    <!--/**
+    * 根据页面的条件,查询appmaintian视图中滴数据.
+    * @param appInfoMaintainForm
+    * @return
+    */
+    List<AppMaintain> findByCondition(AppInfoMaintainForm appInfoMaintainForm);-->
+    <select id="findByCondition"
+            resultType="com.qf.app.view.AppMaintain"
+            parameterType="com.qf.app.form.AppInfoMaintainForm">
+
+        select * from app_maintain
+        <where>
+          <if test="softwareName != null and softwareName != ''">
+              and software_name like "%"#{softwareName}"%"
+          </if>
+          <if test="flatformId != null and flatformId != 0">
+              and app_flatform = #{flatformId}
+          </if>
+          <if test="appStatusId != null and appStatusId != 0">
+              and app_status = #{appStatusId}
+          </if>
+          <if test="categoryLevelOne != null and categoryLevelOne != 0">
+              and category_level1 = #{categoryLevelOne}
+          </if>
+          <if test="categoryLevelTwo != null and categoryLevelTwo != 0">
+              and category_level2 = #{categoryLevelTwo}
+          </if>
+          <if test="categoryLevelThree != null and categoryLevelThree != 0">
+              and category_level3 = #{categoryLevelThree}
+          </if>
+        </where>
+    </select>
+
+
+</mapper>

@@ -1,10 +1,15 @@
 package com.qf.app.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.qf.app.bean.AppInfo;
+import com.qf.app.form.AppInfoMaintainForm;
 import com.qf.app.mapper.AppInfoMapper;
 import com.qf.app.service.AppInfoService;
 import com.qf.app.util.GsonUtil;
+import com.qf.app.view.AppMaintain;
 import com.qf.app.vo.AppDownloadsVO;
+import com.qf.app.vo.LayUITableVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -66,5 +71,26 @@ public class AppInfoServiceImpl implements AppInfoService {
         //3. 返回.
         System.out.println("在mysql数据库中获取的数据: " + System.currentTimeMillis());
         return result;
+    }
+
+
+    /**
+     * app维护页面需要的表格数据
+     * @param appInfoMaintainForm
+     * @return
+     */
+    @Override
+    public LayUITableVO<AppMaintain> findByCondition(AppInfoMaintainForm appInfoMaintainForm) {
+        //1. 分页.
+        PageHelper.startPage(appInfoMaintainForm.getPage(),appInfoMaintainForm.getLimit());
+        //2. 调用mapper接口查询数据.
+        List<AppMaintain> list = appInfoMapper.findByCondition(appInfoMaintainForm);
+        //3. 封装PageInfo
+        PageInfo pageInfo = new PageInfo<>(list);
+        //4. 封装LayUITableVO
+        LayUITableVO<AppMaintain> vo =
+                new LayUITableVO<>(pageInfo.getTotal(),pageInfo.getList());
+        //5. 返回数据
+        return vo;
     }
 }

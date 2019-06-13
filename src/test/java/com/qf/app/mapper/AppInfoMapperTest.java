@@ -2,6 +2,7 @@ package com.qf.app.mapper;
 
 import com.qf.app.AppApplicationTests;
 import com.qf.app.bean.AppInfo;
+import com.qf.app.view.AppMaintain;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,4 +27,25 @@ public class AppInfoMapperTest extends AppApplicationTests {
             System.err.println(appInfo);
         }
     }
+
+    @Test
+    public void findByCondition(){
+        List<AppMaintain> list = appInfoMapper.findByCondition(null);
+        for (AppMaintain appMaintain : list) {
+            System.err.println(appMaintain);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -24,6 +24,7 @@ public interface AppConstant {
 
 
     // 开发者APP的APP维护页面
-    String DEV_APP_MAINTAIN_PAGE = "/dev/app/appMaintain";
+    String DEV_APP_MAINTAIN_PAGE = "dev/app/appMaintain";
 
+    String DEV_APP_MAINTAIN_PATH = "/dev/app/appMaintain";
 }

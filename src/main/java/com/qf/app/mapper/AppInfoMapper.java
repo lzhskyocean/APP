@@ -1,6 +1,8 @@
 package com.qf.app.mapper;
 
 import com.qf.app.bean.AppInfo;
+import com.qf.app.form.AppInfoMaintainForm;
+import com.qf.app.view.AppMaintain;
 import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -16,5 +18,10 @@ public interface AppInfoMapper extends Mapper<AppInfo> {
     @Select("select software_name ,downloads from app_info order by downloads desc limit 5")
     List<AppInfo> findOrderByDownloadsDescLimit();
 
-
+    /**
+     * 根据页面的条件,查询appmaintian视图中滴数据.
+     * @param appInfoMaintainForm
+     * @return
+     */
+    List<AppMaintain> findByCondition(AppInfoMaintainForm appInfoMaintainForm);
 }
