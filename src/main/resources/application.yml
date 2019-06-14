@@ -45,3 +45,12 @@ pagehelper:
 app:
   activeUrl: http://localhost/dev/user/active
 
+
+#6. 图片信息
+pic:
+  size: 5242880
+  types: jpg,png,gif,jpeg
+  realPath: H:\app\src\main\resources\static\img\
+  path: http://localhost/img/
+  resourceLocations: file:///H:\app\src\main\resources\static\img\
+  resourceHandler: /img/**

@@ -1,5 +1,5 @@
 // 一级分类联动二级分类.
-function findLevelTwo(id,$,form){
+function findLevelTwo(id,form){
     // 声明第一个请选择选项
     var content = "<option value='0'>--请选择--</option>";
     // 判断
@@ -35,7 +35,7 @@ function findLevelTwo(id,$,form){
 
 
 // 二级分类联动三级分类.
-function findLevelThree(id,$,form){
+function findLevelThree(id,form){
     // 声明第一个请选择选项
     var content = "<option value='0'>--请选择--</option>";
     // 判断

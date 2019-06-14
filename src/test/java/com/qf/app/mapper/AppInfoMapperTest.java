@@ -37,6 +37,27 @@ public class AppInfoMapperTest extends AppApplicationTests {
     }
 
 
+    @Test
+    public void insert(){
+        //1. 封装数据.
+        AppInfo appInfo = appInfoMapper.selectByPrimaryKey(16);
+        appInfo.setSoftwareName("宠物小精灵");
+        appInfo.setOnSaleDate(null);
+        appInfo.setOffSaleDate(null);
+        appInfo.setCreated(null);
+        appInfo.setUpdated(null);
+        appInfo.setId(null);
+        appInfo.setVersionId(null);
+
+        // service
+        appInfo.setAppStatus(1L);
+        appInfo.setDownloads(0L);
+
+        //2. 插入到数据库.
+        appInfoMapper.insertSelective(appInfo);
+
+    }
+
 
 
 

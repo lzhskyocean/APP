@@ -27,4 +27,13 @@ public interface AppConstant {
     String DEV_APP_MAINTAIN_PAGE = "dev/app/appMaintain";
 
     String DEV_APP_MAINTAIN_PATH = "/dev/app/appMaintain";
+
+    // 开发者APP的添加APP基础信息页面
+    String DEV_APP_ADD_PAGE = "dev/app/app-info-add";
+
+
+    // 开发者APP的新增APP版本页面
+    String DEV_APP_VERSION_ADD_PAGE = "dev/app/app-version-add";
+
+
 }

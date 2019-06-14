@@ -1,4 +1,4 @@
-package com.qf.app.service.impl.impl;
+package com.qf.app.service.impl;
 
 import com.qf.app.bean.AppCategory;
 import com.qf.app.mapper.AppCategoryMapper;

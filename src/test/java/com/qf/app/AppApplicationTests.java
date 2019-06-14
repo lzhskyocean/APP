@@ -23,6 +23,11 @@ public class AppApplicationTests {
 		System.err.println(value);
 	}
 
+//	@Test
+//	public void userDir(){
+//		System.err.println(System.getProperty("user.dir"));
+//	}
+
 
 
 

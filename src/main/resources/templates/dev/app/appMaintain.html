@@ -106,19 +106,19 @@
         <!-- 表格的头部工具栏 -->
         <script type="text/html" id="app_maintain_header_tool">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-sm" lay-event="app_info_add">添加</button>
-                <button class="layui-btn layui-btn-sm" lay-event="app_info_on_sale">上架</button>
-                <button class="layui-btn layui-btn-sm" lay-event="app_info_off_sale">下架</button>
-                <button class="layui-btn layui-btn-sm" lay-event="app_info_delete">删除</button>
+                <button class="layui-btn layui-btn-normal" lay-event="app_info_add"><i class="layui-icon layui-icon-add-1"></i>添加</button>
+                <button class="layui-btn layui-btn-warm" lay-event="app_info_on_sale"><i class="layui-icon layui-icon-up"></i>上架</button>
+                <button class="layui-btn layui-btn-warm" lay-event="app_info_off_sale"><i class="layui-icon layui-icon-down"></i>下架</button>
+                <button class="layui-btn layui-btn-danger" lay-event="app_info_delete"><i class="layui-icon layui-icon-delete"></i>删除</button>
             </div>
         </script>
 
         <!-- 表格的行级按钮 -->
         <script type="text/html" id="app_maintain_row_tool">
-            <a class="layui-btn layui-btn-xs" lay-event="app_info_edit">编辑</a>
-            <a class="layui-btn layui-btn-xs" lay-event="app_version_add">新增APP版本</a>
-            <a class="layui-btn layui-btn-xs" lay-event="app_version_edit">编辑APP版本</a>
-            <a class="layui-btn layui-btn-xs" lay-event="app_info_check">查看</a>
+            <a class="layui-btn layui-btn-xs" lay-event="app_info_edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="app_version_add"><i class="layui-icon layui-icon-add-1"></i>新增APP版本</a>
+            <a class="layui-btn layui-btn-xs" lay-event="app_version_edit"><i class="layui-icon layui-icon-edit"></i>编辑APP版本</a>
+            <a class="layui-btn layui-btn-xs  layui-btn-primary" lay-event="app_info_check"><i class="layui-icon layui-icon-file"></i>查看</a>
         </script>
 
     </div>
@@ -140,12 +140,12 @@
 
         // 一级联动二级
         form.on('select(categoryLevelOne)', function (data) {
-            findLevelTwo(data.value, $, form);
+            findLevelTwo(data.value, form);
         });
 
         // 二级联动三级
         form.on('select(categoryLevelTwo)', function (data) {
-            findLevelThree(data.value, $, form);
+            findLevelThree(data.value, form);
         });
 
 
@@ -168,7 +168,7 @@
                 {field: 'categoryLevel3Name', title: '三级分类'},
                 {field: 'downloads', title: '下载次数', sort: true},
                 {field: 'versionNo', title: '软件版本'},
-                {fixed: 'right', title:'操作', toolbar: '#app_maintain_row_tool', width:380}
+                {fixed: 'right', title:'操作', toolbar: '#app_maintain_row_tool', width:430}
             ]]
         });
 
@@ -200,8 +200,9 @@
                     // 添加
                     layer.open({
                         type: 2,
-                        content: "http://www.baidu.com",
-                        area: ['1000px', '800px']
+                        content: "/dev/app/app-info-add",
+                        area: ['1000px', '700px'],
+                        title: ['添加APP基础信息', 'font-size:18px;']
                     });
                     break;
                 case 'app_info_on_sale':
@@ -223,11 +224,21 @@
         //监听行工具事件
         table.on('tool(appMaintain)', function(obj){
             var data = obj.data;
-            //console.log(obj)
+            var id = data.id;
+            // console.log(data);
             if(obj.event === 'app_info_edit'){
-                alert("编译");
+                alert("修改APP基础");
             } else if(obj.event === 'app_version_add'){
-                alert("添加APP版本");
+                //1. layer.open打开一个弹出层.
+                layer.open({
+                    type: 2,
+                    //1.1 在弹出层中的content指定id参数.
+                    content: "/dev/app/app-version-add/" + id,
+                    area: ['1000px', '700px'],
+                    title: ['新增APP版本', 'font-size:18px;']
+                });
+
+
             } else if(obj.event === 'app_version_edit'){
                 alert("修改APP版本");
             } else if(obj.event === 'app_info_check'){

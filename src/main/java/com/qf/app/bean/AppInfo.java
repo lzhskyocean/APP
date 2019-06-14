@@ -3,6 +3,8 @@ package com.qf.app.bean;
 
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -18,31 +20,37 @@ public class AppInfo {
 	/**
 	 * 软件名称
 	 */
+	@NotBlank(message = "软件名称不能为空!")
 	private String softwareName;
 
 	/**
 	 * apk安装包的名字
 	 */
+	@NotBlank(message = "apk名称不能为空!")
 	private String apkName;
 
 	/**
 	 * 支持的ROM版本
 	 */
+	@NotBlank(message = "ROM版本不能为空!")
 	private String supportRom;
 
 	/**
 	 * 界面语言
 	 */
+	@NotBlank(message = "界面语言不能为空!")
 	private String interfaceLanguage;
 
 	/**
 	 * 软件大小(单位:M)
 	 */
+	@NotBlank(message = "软件大小不能为空!")
 	private String softwareSize;
 
 	/**
 	 * 软件简介
 	 */
+	@NotBlank(message = "软件简介不能为空!")
 	private String appInfo;
 
 	/**
@@ -63,6 +71,7 @@ public class AppInfo {
 	/**
 	 * APP的所属平台:手机 , 平板 , 通用
 	 */
+	@NotNull(message = "所属平台不能为空!")
 	private Long flatformId;
 
 	/**
@@ -73,16 +82,19 @@ public class AppInfo {
 	/**
 	 * 一级分类
 	 */
+	@NotNull(message = "一级分类不能为空!")
 	private Long categoryLevel1;
 
 	/**
 	 * 二级分类
 	 */
+	@NotNull(message = "二级分类不能为空!")
 	private Long categoryLevel2;
 
 	/**
 	 * 三级分类
 	 */
+	@NotNull(message = "三级分类不能为空!")
 	private Long categoryLevel3;
 
 	/**
@@ -93,6 +105,7 @@ public class AppInfo {
 	/**
 	 * 图片访问路径
 	 */
+	@NotBlank(message = "上传图片不能为空!")
 	private String picPath;
 
 	/**

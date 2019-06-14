@@ -61,4 +61,24 @@ public class AppVersion {
 	private java.util.Date updated;
 
 
+	/**
+	 * 发布状态
+	 */
+	@Transient
+	private String publishStatusName;
+
+	/**
+	 * 软件名称
+	 */
+	@Transient
+	private String softwareName;
+
+
+
+
+
+
+
+
+
 }

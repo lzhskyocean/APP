@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>新增APP版本页面</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <table class="layui-table">
+        <thead>
+            <tr>
+                <th>软件名称</th>
+                <th>版本号</th>
+                <th>软件大小(单位:M)</th>
+                <th>发布状态</th>
+                <th>APK文件下载</th>
+                <th>最新更新时间</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="appVersion : ${appVersionList}">
+                <td th:text="${appVersion.softwareName}"></td>
+                <td th:text="${appVersion.versionNo}"></td>
+                <td th:text="${appVersion.versionSize}"></td>
+                <td th:text="${appVersion.publishStatusName}"></td>
+                <td><a th:href="${appVersion.downloadLink}" th:text="${appVersion.apkFileName}"></a></td>
+                <td th:text="${appVersion.updated}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script>
+    // 初始化layui组件
+    layui.use(['table','form'], function(){
+        var table = layui.table;
+        var form = layui.form;
+
+
+
+
+    });
+</script>
+</body>
+</html>

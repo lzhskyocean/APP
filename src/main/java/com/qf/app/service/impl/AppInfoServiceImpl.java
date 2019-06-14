@@ -3,6 +3,8 @@ package com.qf.app.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qf.app.bean.AppInfo;
+import com.qf.app.enums.AppStatusEnum;
+import com.qf.app.exception.AppException;
 import com.qf.app.form.AppInfoMaintainForm;
 import com.qf.app.mapper.AppInfoMapper;
 import com.qf.app.service.AppInfoService;
@@ -10,11 +12,14 @@ import com.qf.app.util.GsonUtil;
 import com.qf.app.view.AppMaintain;
 import com.qf.app.vo.AppDownloadsVO;
 import com.qf.app.vo.LayUITableVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +30,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2019-06-12 11:38
  */
 @Service
+@Slf4j
 public class AppInfoServiceImpl implements AppInfoService {
 
     // 设置定存放在redis中的下载量排行数据的key
@@ -32,6 +38,9 @@ public class AppInfoServiceImpl implements AppInfoService {
 
     // 设置生存时间
     private final long REDIS_DOWNLOADS_KEY_EXPIRE = 1L;
+
+    // 软件默认下载量
+    private final long DEFAULT_DOWNLOADS = 0L;
 
     @Autowired
     private AppInfoMapper appInfoMapper;
@@ -92,5 +101,28 @@ public class AppInfoServiceImpl implements AppInfoService {
                 new LayUITableVO<>(pageInfo.getTotal(),pageInfo.getList());
         //5. 返回数据
         return vo;
+    }
+
+
+    /**
+     * 添加APP基础信息.
+     * @param appInfo
+     */
+    @Override
+    @Transactional
+    public void appInfoAdd(AppInfo appInfo) {
+        //1. 封装数据.
+        //1.1 app状态
+        appInfo.setAppStatus(AppStatusEnum.WAIT_EXAM.getStatus());
+        //1.2 app的下载量
+        appInfo.setDownloads(DEFAULT_DOWNLOADS);
+        //2. 调用mapper插入数据
+        int count = appInfoMapper.insertSelective(appInfo);
+        //3. 判断添加是否成功
+        if(count != 1){
+            // 添加失败
+            log.error("[添加APP基础信息] 添加基础信息失败 appInfo = {}",appInfo);
+            throw new AppException("添加APP基础信息失败,请联系管理员!");
+        }
     }
 }
