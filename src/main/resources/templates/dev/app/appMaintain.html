@@ -206,8 +206,38 @@
                     });
                     break;
                 case 'app_info_on_sale':
-                    var data = checkStatus.data;
-                    alert("上架");
+                    var jsonArray = checkStatus.data;
+                    //1. 判断是否选中了某一行.
+                    if(jsonArray.length == 0){
+                        layer.msg("执行上架,需要选中某一行数据!");
+                        return;
+                    }
+                    var array = [];
+                    //2. 遍历json数组,判断每一行的状态.如果不为2/5即不允许上架
+                    for(var i in jsonArray){
+                        var appStatus = jsonArray[i].appStatus;
+                        if(!(appStatus == 2 || appStatus == 5)){
+                            layer.msg(jsonArray[i].softwareName + "状态为:" + jsonArray[i].appStatusName + ",不允许上架!!");
+                            return;
+                        }
+                        array.push(jsonArray[i].id);
+                    }
+                    //3. 执行上架.
+                    $.post(
+                        "/dev/app/on-sale",
+                        {array: array},
+                        function(result){
+                            if(result.code == 0){
+                                // 上架成功
+                                layer.msg("选中软件上架成功!");
+                                // 重载table
+                                table.reload('appMaintain');
+                            }else{
+                                layer.msg(result.msg);
+                            }
+                        },
+                        "json"
+                    );
                     break;
                 case 'app_info_off_sale':
                     var data = checkStatus.data;
@@ -235,7 +265,17 @@
                     //1.1 在弹出层中的content指定id参数.
                     content: "/dev/app/app-version-add/" + id,
                     area: ['1000px', '700px'],
-                    title: ['新增APP版本', 'font-size:18px;']
+                    title: ['新增APP版本', 'font-size:18px;'],
+                    end: function(){
+                        // 获取新增APP版本页面中存放在本地的版本号.
+                        var versionNo = layui.data('versionNo').versionNo;
+                        // 将从本地获取到的版本号,更新到table表中
+                        obj.update({
+                            versionNo: versionNo
+                        });
+                        // 删除表
+                        layui.data('versionNo', null);
+                    }
                 });
 
 

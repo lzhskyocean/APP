@@ -21,7 +21,9 @@ import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -123,6 +125,49 @@ public class AppInfoServiceImpl implements AppInfoService {
             // 添加失败
             log.error("[添加APP基础信息] 添加基础信息失败 appInfo = {}",appInfo);
             throw new AppException("添加APP基础信息失败,请联系管理员!");
+        }
+    }
+
+
+    // 修改APP版本
+    @Override
+    @Transactional
+    public void updateVersionId(AppInfo appInfo) {
+        int count = appInfoMapper.updateByPrimaryKeySelective(appInfo);
+        if(count != 1){
+            log.error("[添加APP版本] 修改APP版本号失败! appInfo = {}",appInfo);
+            throw new AppException("修改APP版本号失败!");
+        }
+    }
+
+
+    // 上架操作.
+    @Override
+    @Transactional
+    public void onSale(List<Long> ids) {
+        //1. 集合的长度不为0
+        if(ids == null || ids.size() == 0){
+            log.error("[上架] 未选中任何的软件  ids = {}" ,ids);
+            throw new AppException("执行上架,需要选中某一行数据!");
+        }
+        //2. 根据ids查询软件信息.
+        List<AppInfo> list = appInfoMapper.findByIdIn(ids);
+        //3. 判断,如果状态不为2或5,代表软件状态不正确.
+        for (AppInfo appInfo : list) {
+            if(!(appInfo.getAppStatus() == 2 || appInfo.getAppStatus() == 5)){
+                // 软件状态不正确.
+                log.error("[上架] 软件状态不正确  appInfo = {}" ,appInfo);
+                throw new AppException(appInfo.getSoftwareName() + "状态不正确!");
+            }
+        }
+        //4. 执行修改软件状态.
+        Map<String, Object> param = new HashMap<>();
+        param.put("ids",ids);
+        param.put("status",AppStatusEnum.ON_SALE.getStatus());
+        Integer count = appInfoMapper.updateAppStatusByIdIn(param);
+        if(count != ids.size()){
+            log.error("[上架] 修改软件状态异常  param = {}" ,param);
+            throw new AppException("修改软件状态异常,请联系管理员!");
         }
     }
 }

@@ -32,4 +32,16 @@ public interface AppInfoService {
      * @param appInfo
      */
     void appInfoAdd(AppInfo appInfo);
+
+    /**
+     * 修改APP的版本号
+     * @param appInfo
+     */
+    void updateVersionId(AppInfo appInfo);
+
+    /**
+     * 上架操作
+     * @param longs
+     */
+    void onSale(List<Long> longs);
 }

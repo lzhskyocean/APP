@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -51,14 +52,73 @@ public class DevAppController {
     @Autowired
     private AppVersionService appVersionService;
 
-//    Request URL: http://localhost/dev/app/app-version-add/1
-//    Request Method: GET
+
+    /**
+     *  上架操作
+     * @param ids
+     * @return
+     */
+    @PostMapping("/on-sale")
+    @ResponseBody
+    public ResultVO OnSale(@RequestParam("array[]") Long[] ids){
+        try {
+            //1. 调用service执行上架.
+            appInfoService.onSale(Arrays.asList(ids));
+            //2. 响应正确数据.
+            return new ResultVO();
+        } catch (AppException e) {
+            e.printStackTrace();
+            //3. 响应错误信息
+            return new ResultVO(1,e.getMessage());
+        }
+    }
+
+
+
+    /**
+     * 添加APP版本
+     * @param appVersion
+     * @param bindingResult
+     * @return
+     */
+    @PostMapping("/app-version-add")
+    @ResponseBody
+    public ResultVO appVersionAdd(@Valid AppVersion appVersion,
+                                  BindingResult bindingResult){
+
+        //1. 校验参数.
+        if(bindingResult.hasErrors()){
+            // 获得错误信息
+            String msg = bindingResult.getFieldError().getDefaultMessage();
+            return new ResultVO(1,msg);
+        }
+        try {
+            //2. 调用service保存
+            appVersionService.save(appVersion);
+            //3. 响应数据.
+            return new ResultVO();
+        } catch (AppException e) {
+            e.printStackTrace();
+            //4. 异常,响应错误信息
+            return new ResultVO(1,e.getMessage());
+        }
+    }
+
+
+    /**
+     * 跳转到添加APP版本页面
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/app-version-add/{id}")
     public String toAppVersonAddPage(@PathVariable Long id,Model model){
         //1. 根据App的最新的三个历史版本
         List<AppVersion> appVersionList = appVersionService.findNewVersionThree(id);
         model.addAttribute("appVersionList",appVersionList);
 
+        //2. 将当前APP的id放到model中
+        model.addAttribute("appId",id);
         // 转发到新增APP版本页面.
         return DEV_APP_VERSION_ADD_PAGE;
     }

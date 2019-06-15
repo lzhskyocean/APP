@@ -23,6 +23,11 @@ spring:
   redis:
     host: localhost
     port: 6379
+  # 设置上传文件最大值
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 
 
 #3. 整合mybatis.
@@ -49,8 +54,16 @@ app:
 #6. 图片信息
 pic:
   size: 5242880
-  types: jpg,png,gif,jpeg
+  types: .jpg,.png,.gif,.jpeg
   realPath: H:\app\src\main\resources\static\img\
   path: http://localhost/img/
   resourceLocations: file:///H:\app\src\main\resources\static\img\
   resourceHandler: /img/**
+
+#6. 图片信息
+apk:
+  type: .apk
+  realPath: H:\app\src\main\resources\static\apk\
+  path: http://localhost/apk/
+  resourceLocations: file:///H:\app\src\main\resources\static\apk\
+  resourceHandler: /apk/**

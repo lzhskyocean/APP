@@ -38,4 +38,36 @@
     </select>
 
 
+    <!--// 根据id使用in去修改app的状态-->
+    <!--// param -> ids      param -> status-->
+    <!--Integer updateAppStatusByIdIn(Map<String,Object> param);-->
+    <update id="updateAppStatusByIdIn">
+        update
+          app_info
+        set
+          app_status = #{status}
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")" >
+            #{id}
+        </foreach>
+    </update>
+
+
+    <!--// 根据id使用in去查询app的名称和状态-->
+    <!--List<AppInfo> findByIdIn(List<Long> ids);-->
+    <select id="findByIdIn" resultType="AppInfo">
+        select
+          software_name,app_status
+        from
+          app_info
+        where id in
+        <foreach collection="list" item="id" open="(" separator="," close=")" >
+            #{id}
+        </foreach>
+    </select>
+
+
+
+
+
 </mapper>

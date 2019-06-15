@@ -2,11 +2,16 @@ package com.qf.app.mapper;
 
 import com.qf.app.AppApplicationTests;
 import com.qf.app.bean.AppInfo;
+import com.qf.app.enums.AppStatusEnum;
 import com.qf.app.view.AppMaintain;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -59,6 +64,38 @@ public class AppInfoMapperTest extends AppApplicationTests {
     }
 
 
+
+    @Test
+    @Transactional
+    public void updateAppStatusByIdIn(){
+        List<Long> ids = Arrays.asList(1L,2L,3L,4L,5L);
+
+        Map<String,Object> param = new HashMap<>();
+
+        param.put("ids",ids);
+        param.put("status", AppStatusEnum.ON_SALE.getStatus());
+
+        Integer count = appInfoMapper.updateAppStatusByIdIn(param);
+
+        System.out.println(count);
+
+    }
+
+
+
+
+    @Test
+    public void findByIdIn(){
+        List<Long> ids = Arrays.asList(1L,2L,3L,4L,5L);
+
+        List<AppInfo> list = appInfoMapper.findByIdIn(ids);
+
+        for (AppInfo appInfo : list) {
+            System.err.println(appInfo.getSoftwareName() + ".." + appInfo.getAppStatus());
+        }
+
+
+    }
 
 
 

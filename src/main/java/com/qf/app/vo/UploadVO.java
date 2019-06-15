@@ -10,15 +10,19 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class UploadPicVO {
+public class UploadVO {
 
     private Integer code = 0;
 
     private String msg = "";
 
-    private Object picPath;
+    private Object data;
 
-    public UploadPicVO(Integer code, String msg) {
+    public UploadVO(Object data) {
+        this.data = data;
+    }
+
+    public UploadVO(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }

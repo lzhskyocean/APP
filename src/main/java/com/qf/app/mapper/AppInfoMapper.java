@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * APP详情表对应的mapper接口
@@ -24,4 +25,14 @@ public interface AppInfoMapper extends Mapper<AppInfo> {
      * @return
      */
     List<AppMaintain> findByCondition(AppInfoMaintainForm appInfoMaintainForm);
+
+
+    // 根据id使用in去查询app的名称和状态
+    List<AppInfo> findByIdIn(List<Long> ids);
+
+
+    // 根据id使用in去修改app的状态
+    // param -> ids      param -> status
+    Integer updateAppStatusByIdIn(Map<String,Object> param);
+
 }
