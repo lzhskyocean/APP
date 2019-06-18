@@ -67,7 +67,15 @@
     </select>
 
 
-
+    <!--/**-->
+    <!--* 根据id查询appmaintian视图中滴数据.-->
+    <!--* @param id-->
+    <!--* @return-->
+    <!--*/-->
+    <!--AppMaintain findById(@Param("id") Long id);-->
+    <select id="findById" resultType="com.qf.app.view.AppMaintain">
+        select * from app_maintain where id = #{id}
+    </select>
 
 
 </mapper>

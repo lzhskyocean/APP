@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.app.mapper.BackendUserMapper">
+
+    <!--//2. 根据角色名称查询用户的权限.-->
+    <!--Set<String> findPermsByRoles(@Param("set") Set<String> roles);-->
+    <select id="findPermsByRoles" resultType="String">
+        select perm_name from roles_perms where role_name in
+        <foreach collection="set" item="role" open="(" separator="," close=")">
+            #{role}
+        </foreach>
+    </select>
+
+</mapper>

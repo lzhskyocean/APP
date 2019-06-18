@@ -67,3 +67,8 @@ apk:
   path: http://localhost/apk/
   resourceLocations: file:///H:\app\src\main\resources\static\apk\
   resourceHandler: /apk/**
+
+#7. shiro的登录路径.
+shiro:
+  loginUrl: /backend/user/login
+

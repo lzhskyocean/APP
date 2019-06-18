@@ -3,6 +3,8 @@ package com.qf.app.bean;
 
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -13,25 +15,18 @@ import java.util.Set;
 @Table
 public class AppCategory {
 
-	public static void main(String[] args) {
-		Set<String> set = new HashSet<>();
-		set.add(null);
-
-
-		Map<String,String> map = new HashMap<>();
-		map.put(null,"123123");
-	}
-
-
 	@Id
 	/**
 	 * 主键id
 	 */
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull(message = "分类的id为必传项,岂能不传!")
 	private Long id;
 
 	/**
 	 * 分类的名字
 	 */
+	@NotBlank(message = "分类的名称为必传项,岂能不填!")
 	private String categoryName;
 
 	/**
@@ -42,7 +37,7 @@ public class AppCategory {
 	/**
 	 * 是否是父节点
 	 */
-	private String isParent;
+	private Boolean isParent;
 
 	/**
 	 * 创建时间

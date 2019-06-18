@@ -44,4 +44,18 @@ public interface AppInfoService {
      * @param longs
      */
     void onSale(List<Long> longs);
+
+    /**
+     * 根据id查询app详细信息
+     * @param id
+     * @return
+     */
+    AppMaintain findAppMaintainById(Long id);
+
+    /**
+     * 修改APP状态
+     * @param id
+     * @param status
+     */
+    void updateAppStatus(Long id, Long status);
 }

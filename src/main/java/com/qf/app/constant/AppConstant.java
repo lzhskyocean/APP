@@ -9,6 +9,8 @@ public interface AppConstant {
     // 重定向关键字
     String REDIRECT = "redirect:";
 
+    Long PARENT_ID = 0L;
+
     // 用登录成功后,放到session中key.
     String DEV_USER_SESSION_KEY = "devuser";
 
@@ -36,4 +38,32 @@ public interface AppConstant {
     String DEV_APP_VERSION_ADD_PAGE = "dev/app/app-version-add";
 
 
+    //=============================================================
+
+    // 后台管理登录页面
+    String BACKEND_USER_LOGIN_PAGE = "backend/user/login";
+
+    String BACKEND_USER_LOGIN_PATH = "/backend/user/login";
+
+    // 后台管理的首页
+    String BACKEND_APP_INDEX_PAGE = "backend/app/index";
+
+    String BACKEND_APP_INDEX_PATH = "/backend/app/index";
+
+    // 后台管理的APP分类管理页
+    String BACKEND_APP_CATEGORY_PAGE = "backend/app/app-category-manager";
+
+    String BACKEND_APP_CATEGORY_PATH = "/backend/app/app-category-manager";
+
+
+    // 后台管理的APP展示页
+    String BACKEND_APP_INFO_PAGE = "backend/app/app-info-list";
+
+    String BACKEND_APP_INFO_PATH = "/backend/app/app-info-list";
+
+
+    // 后台管理的APP详细信息页
+    String BACKEND_APP_INFO_ONE_PAGE = "backend/app/app-info-one";
+
+    String BACKEND_APP_INFO_ONE_PATH = "/backend/app/app-info-one";
 }

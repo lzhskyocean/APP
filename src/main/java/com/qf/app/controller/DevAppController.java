@@ -36,7 +36,7 @@ import java.util.List;
 @RequestMapping("/dev/app")
 public class DevAppController {
 
-    private final long PARENT_ID = 0L;
+
 
     @Autowired
     private AppInfoService appInfoService;

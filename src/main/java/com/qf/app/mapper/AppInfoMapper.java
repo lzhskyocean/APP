@@ -3,6 +3,7 @@ package com.qf.app.mapper;
 import com.qf.app.bean.AppInfo;
 import com.qf.app.form.AppInfoMaintainForm;
 import com.qf.app.view.AppMaintain;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -25,6 +26,13 @@ public interface AppInfoMapper extends Mapper<AppInfo> {
      * @return
      */
     List<AppMaintain> findByCondition(AppInfoMaintainForm appInfoMaintainForm);
+
+    /**
+     * 根据id查询appmaintian视图中滴数据.
+     * @param id
+     * @return
+     */
+    AppMaintain findById(@Param("id") Long id);
 
 
     // 根据id使用in去查询app的名称和状态

@@ -1,14 +1,18 @@
 package com.qf.app.view;
 
 
-import lombok.Data;
+import lombok.*;
+import javax.persistence.*;
 
 /**
- *  映射app_maintain视图.
+ * 映射app_maintian视图
  */
 @Data
+@Entity
+@Table
 public class AppMaintain {
 
+	@Id
 	/**
 	 * 主键id
 	 */
@@ -28,6 +32,31 @@ public class AppMaintain {
 	 * 下载次数
 	 */
 	private Long downloads;
+
+	/**
+	 * 软件简介
+	 */
+	private String appInfo;
+
+	/**
+	 * apk安装包的名字
+	 */
+	private String apkName;
+
+	/**
+	 * 界面语言
+	 */
+	private String interfaceLanguage;
+
+	/**
+	 * 图片访问路径
+	 */
+	private String picPath;
+
+	/**
+	 * 支持的ROM版本
+	 */
+	private String supportRom;
 
 	/**
 	 * 映射不用类型的id

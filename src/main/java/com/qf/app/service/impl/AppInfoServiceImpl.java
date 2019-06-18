@@ -170,4 +170,26 @@ public class AppInfoServiceImpl implements AppInfoService {
             throw new AppException("修改软件状态异常,请联系管理员!");
         }
     }
+
+    // 根据id查询app信息
+    @Override
+    public AppMaintain findAppMaintainById(Long id) {
+        return appInfoMapper.findById(id);
+    }
+
+    // 根据id修改APP状态
+    @Override
+    public void updateAppStatus(Long id, Long status) {
+        AppInfo appInfo = new AppInfo();
+        appInfo.setId(id);
+        appInfo.setAppStatus(status);
+
+        int count = appInfoMapper.updateByPrimaryKeySelective(appInfo);
+
+        if(count != 1){
+            log.error("[修改APP状态] 修改APP状态失败! appInfo = {}",appInfo);
+            throw new AppException("修改APP状态失败!");
+        }
+
+    }
 }
