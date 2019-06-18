@@ -3,6 +3,7 @@ package com.qf.app.service;
 import com.qf.app.bean.DevUser;
 
 import javax.mail.MessagingException;
+import java.util.List;
 
 /**
  * @author 郑大仙丶
@@ -18,4 +19,13 @@ public interface DevUserService {
 
     //3. 执行登录.
     DevUser login(String devUsername, String devPassword);
+
+    //4. 异步校验用户名
+    void devUserService(String devUsername);
+
+    //5. 查询超过三天未激活账号的用户
+    List<DevUser> findThreeDayNotActive();
+
+    //6. 删除超过三天未激活账号的用户
+    Integer deleteThreeDayNotActive(List<DevUser> devUserList);
 }

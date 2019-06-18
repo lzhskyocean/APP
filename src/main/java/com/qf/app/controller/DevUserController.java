@@ -5,16 +5,14 @@ import static com.qf.app.constant.AppConstant.*;
 import com.qf.app.bean.DevUser;
 import com.qf.app.exception.AppException;
 import com.qf.app.service.DevUserService;
+import com.qf.app.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
@@ -35,6 +33,16 @@ public class DevUserController {
 
 
     private final String REGISTER_INFO = "registerInfo";
+
+
+    @GetMapping("/username-verify")
+    @ResponseBody
+    public ResultVO usernameVerify(@RequestParam String devUsername){
+        //1. 调用service查询
+        devUserService.devUserService(devUsername);
+        //2. 响应数据
+        return new ResultVO();
+    }
 
 
     /**
@@ -76,6 +84,7 @@ public class DevUserController {
             //2. 调用service完成注册.
             devUserService.register(devUser);
             //3. 注册成功,跳转到登录页面..
+            redirectAttributes.addAttribute(REGISTER_INFO,"注册成功,请去指定邮箱激活账号后,登录!");
             return REDIRECT + DEV_USER_LOGIN_PAGE;
         } catch (AppException e) {
             e.printStackTrace();
@@ -103,7 +112,7 @@ public class DevUserController {
             //1. 调用service,完成激活
             devUserService.active(devUsername,code);
             //2. 如果成功,跳转到success页面
-            model.addAttribute("success","激活账号成功,请登录.");
+            model.addAttribute("success","激活账号成功,<a color='green' href='/dev/user/login'>请登录</a>!");
             return "success";
         } catch (AppException e) {
             e.printStackTrace();

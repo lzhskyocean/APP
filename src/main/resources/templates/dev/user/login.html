@@ -34,6 +34,7 @@
                         </em>
                          <form th:action="@{/dev/user/login}" th:method="post">
                             <p th:style="'color:red;'" th:text="${#request.getParameter('loginInfo')}"></p>
+                            <p th:style="'color:green;'" th:text="${#request.getParameter('registerInfo')}"></p>
                             <p class="name"><i></i><input type="text" required name="devUsername" class="userName" placeholder="请输入用户名"></p>
                             <p class="password"><i></i><input type="password" required name="devPassword" class="pwd" placeholder="请输入密码"></p>
                             <button type="submit">登录</button>

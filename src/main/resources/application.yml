@@ -38,6 +38,8 @@ mybatis:
   mapper-locations: mapper/*.xml
 
 
+
+
 #4. 整合分页助手
 pagehelper:
   helperDialect: mysql

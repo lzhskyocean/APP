@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.util.UUID.randomUUID;
 
 /**
@@ -140,5 +143,39 @@ public class DevUserServiceImpl implements DevUserService {
         }
         //5. 如果密码一致,登录成功,返回devUser
         return devUser;
+    }
+
+    //4. 异步校验用户名
+    @Override
+    public void devUserService(String devUsername) {
+        //1. 封装参数
+        DevUser param = new DevUser();
+        param.setDevUsername(devUsername);
+        //2. 查询数据
+        int count = devUserMapper.selectCount(param);
+        //3. 判断
+        if(count != 0){
+            log.info("[异步校验用户名] 用户名已经被注册 devUsername = {}",devUsername);
+            throw new AppException("用户已经被注册.");
+        }
+    }
+
+
+    //5. 查询超过三天未激活账号的用户
+    @Override
+    public List<DevUser> findThreeDayNotActive() {
+        return devUserMapper.findThreeDayNotActive();
+    }
+
+
+    //6. 删除超过三天未激活账号的用户
+    @Override
+    public Integer deleteThreeDayNotActive(List<DevUser> devUserList) {
+        //1. 封装数据
+        List<Long> ids = devUserList
+                .stream().map(devUser -> {return devUser.getId();})
+                .collect(Collectors.toList());
+        //2. 执行删除.
+        return devUserMapper.deleteByIds(ids);
     }
 }

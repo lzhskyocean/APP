@@ -15,8 +15,9 @@
                     <p th:style="'color:red;'" th:text="${#request.getParameter('registerInfo')}"></p>
                     <div class="userName">
                         <label for="devName">用户名:</label>
-                        <input type="text" id="devName" required name="devUsername" placeholder="输入用户名"><!--<em>由5-8个字符组成！</em>-->
+                        <input type="text" onblur="checkUsername(this)" id="devName" required name="devUsername" placeholder="输入用户名"><!--<em>由5-8个字符组成！</em>-->
                     </div>
+                    <span style="color:red;" id="devUsernameInfo"></span>
                     <div class="password">
                         <label for="devPassword">密码:</label>
                         <input type="password" id="devPassword" required name="devPassword" placeholder="输入密码" onkeyup="keyUp()"><!--<em>使用字母、数字、符号两种及以上的组合，8-12个字符</em>-->
@@ -52,6 +53,34 @@
         <!--</footer>-->
     </div>
 <script>
+    // 异步校验用户名
+    function checkUsername(obj){
+        //1. 获取用户输入的用户名.
+        var devUsername = $(obj).val();
+        //2. 非空判断
+        if($.trim(devUsername) == ""){
+            // 用户没有填写任何内容
+            $('#btnSubmit').attr('disabled', 'disabled');
+            $("#devUsernameInfo").html("用户名为必填项,岂能不填!");
+            return;
+        }
+        //3. 发送异步请求到后台校验
+        $.getJSON(
+            "/dev/user/username-verify",
+            "devUsername=" + devUsername,
+            function(result){
+                if(result.code == 0){
+                    $('#btnSubmit').removeAttr('disabled');
+                    $("#devUsernameInfo").html("");
+                }else{
+                    $('#btnSubmit').attr('disabled', 'disabled');
+                    $("#devUsernameInfo").html("用户名已经被注册!");
+                }
+            }
+        );
+    }
+
+
     // 校验两次密码
     function keyUp() {
         var a = $('#devPassword').val();
