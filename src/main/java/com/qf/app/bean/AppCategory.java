@@ -13,6 +13,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table
+
 public class AppCategory {
 
 	@Id

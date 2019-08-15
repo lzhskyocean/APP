@@ -1,0 +1,76 @@
+#1. 项目端口号和项目路径.
+server:
+  port: 80
+  servlet:
+    context-path: /
+
+
+
+#2. datasource数据源.
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///app?characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: lzh123456
+    type: com.alibaba.druid.pool.DruidDataSource
+  # 邮件的配置
+  mail:
+    host: smtp.163.com
+    username: lzhskyocean@163.com
+    password: LZH123456789
+  # redis配置
+  redis:
+    host: localhost
+    port: 6379
+  # 设置上传文件最大值
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+
+#3. 整合mybatis.
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.qf.app.bean
+  mapper-locations: mapper/*.xml
+
+
+
+
+#4. 整合分页助手
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+#5. 激活账号的url地址
+app:
+  activeUrl: http://localhost/dev/user/active
+
+
+#6. 图片信息
+pic:
+  size: 5242880
+  types: .jpg,.png,.gif,.jpeg
+  realPath: D:\Data Files\IdeaSpace\app\src\main\resources\static\img\
+  path: http://localhost/img/
+  resourceLocations: file:///D:\Data Files\IdeaSpace\app\src\main\resources\static\img\
+  resourceHandler: /img/**
+
+#6. 图片信息
+apk:
+  type: .apk
+  realPath: D:\Data Files\IdeaSpace\app\src\main\resources\static\apk\
+  path: http://localhost/apk/
+  resourceLocations: file:///D:\Data Files\IdeaSpace\app\src\main\resources\static\apk\
+  resourceHandler: /apk/**
+
+#7. shiro的登录路径.
+shiro:
+  loginUrl: /backend/user/login
+

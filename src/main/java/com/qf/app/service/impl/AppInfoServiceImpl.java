@@ -8,12 +8,14 @@ import com.qf.app.exception.AppException;
 import com.qf.app.form.AppInfoMaintainForm;
 import com.qf.app.mapper.AppInfoMapper;
 import com.qf.app.service.AppInfoService;
+import com.qf.app.service.AppVersionService;
 import com.qf.app.util.GsonUtil;
 import com.qf.app.view.AppMaintain;
 import com.qf.app.vo.AppDownloadsVO;
 import com.qf.app.vo.LayUITableVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +51,10 @@ public class AppInfoServiceImpl implements AppInfoService {
 
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
+
+    @Autowired
+    @Lazy
+    private AppVersionService appVersionService;
 
     /**
      * 查询下载量TOP FIVE

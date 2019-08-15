@@ -35,6 +35,7 @@ public class DevUserServiceImpl implements DevUserService {
     private MailService mailService;
 
 
+    // 引入配置
     @Value("${app.activeUrl}")
     private String activeUrl;
 
@@ -66,12 +67,12 @@ public class DevUserServiceImpl implements DevUserService {
         if(count != 1){
             // 添加失败.
             log.error("[注册账号]  注册账号失败 devUser = {}",devUser);
-            throw new AppException("注册账号失败,请联系管理员,电话:110!");
+            throw new AppException("注册账号失败,请联系管理员,电话:18888888888!");
         }
         //6. 发送激活路径到邮箱.
         String to = devUser.getDevEmail();
         String subject = "APP管理系统-激活开发者平台账号";
-        String content = String.format("<h1><a href='%s?devUsername=%s&code=%s'>激活开发者账号</a></h1>", activeUrl, devUser.getDevUsername(), devUser.getDevCode()).toString();
+        String content = String.format("<h1><a href='%s?devUsername=%s&code=%s'>激活开发者账号</a></h1>", activeUrl, devUser.getDevUsername(), devUser.getDevCode());
         System.out.println(content);
         mailService.sendHTMLMail(to,subject,content);
     }

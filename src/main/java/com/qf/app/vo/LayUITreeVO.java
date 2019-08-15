@@ -3,6 +3,7 @@ package com.qf.app.vo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -10,15 +11,15 @@ import java.util.List;
  * @author 郑大仙丶
  * @date 2019-06-17 14:12
  */
-@Data
-@NoArgsConstructor
+@Data  // 进行get/set/toString等操作
+@NoArgsConstructor  // 无参构造
 public class LayUITreeVO {
 
-    private Long id;                    //3.
+    private Long id;
 
-    private String title;               //三级分类
+    private String title;
 
-    private List<LayUITreeVO> children; //null
+    private List<LayUITreeVO> children;
 
     public LayUITreeVO(Long id, String title) {
         this.id = id;

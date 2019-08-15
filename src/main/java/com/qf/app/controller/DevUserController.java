@@ -78,28 +78,28 @@ public class DevUserController {
             // 设置错误信息
             redirectAttributes.addAttribute(REGISTER_INFO,registerInfo);
             // 跳转到注册页面.
-            return REDIRECT +  DEV_USER_REGISTER_PAGE;
+            return REDIRECT +  DEV_USER_REGISTER_PATH;
         }
         try {
             //2. 调用service完成注册.
             devUserService.register(devUser);
             //3. 注册成功,跳转到登录页面..
             redirectAttributes.addAttribute(REGISTER_INFO,"注册成功,请去指定邮箱激活账号后,登录!");
-            return REDIRECT + DEV_USER_LOGIN_PAGE;
+            return REDIRECT + DEV_USER_LOGIN_PATH;
         } catch (AppException e) {
             e.printStackTrace();
             //4. 重定向到注册页面,并给予提示.
             // 设置错误信息
             redirectAttributes.addAttribute(REGISTER_INFO,"注册账号失败,请稍后再试!!");
             // 跳转到注册页面.
-            return REDIRECT +  DEV_USER_REGISTER_PAGE;
+            return REDIRECT +  DEV_USER_REGISTER_PATH;
         }catch (MessagingException e) {
             e.printStackTrace();
             //4. 重定向到注册页面,并给予提示.
             // 发送邮件失败
             redirectAttributes.addAttribute(REGISTER_INFO,"发送邮件失败!");
             // 跳转到注册页面.
-            return REDIRECT +  DEV_USER_REGISTER_PAGE;
+            return REDIRECT +  DEV_USER_REGISTER_PATH;
         }
     }
 
@@ -146,7 +146,7 @@ public class DevUserController {
             // 给出提示信息
             redirectAttributes.addAttribute("loginInfo","用户名和密码为必填项!");
             // 重定向到登录页面路径
-            return REDIRECT + DEV_USER_LOGIN_PAGE;
+            return REDIRECT + DEV_USER_LOGIN_PATH;
         }
         try {
             //2. 调用service执行登录操作.
@@ -154,40 +154,16 @@ public class DevUserController {
             //3. 将用户的信息放到session域中.
             session.setAttribute(DEV_USER_SESSION_KEY,devUser);
             //4. 跳转到APP开发者平台的首页
-            return REDIRECT + DEV_APP_INDEX_PAGE;
+            return REDIRECT + DEV_APP_INDEX_PATH;
         } catch (AppException e) {
             e.printStackTrace();
             // 给出提示信息
             redirectAttributes.addAttribute("loginInfo",e.getMessage());
             // 重定向到登录页面路径
-            return REDIRECT + DEV_USER_LOGIN_PAGE;
+            return REDIRECT + DEV_USER_LOGIN_PATH;
 
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

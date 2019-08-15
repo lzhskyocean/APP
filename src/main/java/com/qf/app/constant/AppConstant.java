@@ -16,13 +16,16 @@ public interface AppConstant {
 
 
     //开发者用户注册页面
-    String DEV_USER_REGISTER_PAGE = "/dev/user/register";
+    String DEV_USER_REGISTER_PAGE = "dev/user/register";
+    String DEV_USER_REGISTER_PATH = "/dev/user/register";
 
     //开发者用户登录页面
-    String DEV_USER_LOGIN_PAGE = "/dev/user/login";
+    String DEV_USER_LOGIN_PAGE = "dev/user/login";
+    String DEV_USER_LOGIN_PATH = "/dev/user/login";
 
     //开发者APP平台首页
-    String DEV_APP_INDEX_PAGE = "/dev/app/index";
+    String DEV_APP_INDEX_PAGE = "dev/app/index";
+    String DEV_APP_INDEX_PATH = "/dev/app/index";
 
 
     // 开发者APP的APP维护页面

@@ -39,7 +39,7 @@ public class AppCategoryServiceImpl implements AppCategoryService {
         List<AppCategory> categoryList1 = appCategoryMapper.findByParentId(0L);
         //3. 将一级分类内容导入到声明最外层返回结果
         for (AppCategory category1 : categoryList1) {
-            //3.1 导入id和title.
+            //3.1 导入id和title.(前端要求的字段是id和title)
             LayUITreeVO vo1 = new LayUITreeVO(category1.getId(),category1.getCategoryName());
             //4.1 声明中间层的返回结果.  List<LayUITreeVO>
             List<LayUITreeVO> treeVO2 = new ArrayList<>();
@@ -53,12 +53,12 @@ public class AppCategoryServiceImpl implements AppCategoryService {
                 //5.2 根据二级分类的id,查询对应的三级分类. List<AppCategory>
                 List<AppCategory> categoryList3 = appCategoryMapper.findByParentId(category2.getId());
                 for (AppCategory category3 : categoryList3) {
-                    //5.3 导入id和title. 三级分类
+                    //5.3 导入id和title. 三级分类(三级分类没有下一级,故不用添加子节点)
                     LayUITreeVO vo3 = new LayUITreeVO(category3.getId(),category3.getCategoryName());
                     treeVO3.add(vo3);
                 }
                 //4.4 导入children数据.
-                vo2.setChildren(treeVO3);
+                vo2.setChildren(treeVO3);  // 添加子节点
                 treeVO2.add(vo2);
             }
             //3.2 导入children数据.

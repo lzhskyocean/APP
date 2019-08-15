@@ -9,6 +9,7 @@ import com.qf.app.service.AppInfoService;
 import com.qf.app.service.AppVersionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     private AppVersionMapper appVersionMapper;
 
     @Autowired
+    @Lazy
     private AppInfoService appInfoService;
 
 
